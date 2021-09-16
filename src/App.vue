@@ -17,7 +17,7 @@ export default {
           jsonPath:
             "../live2dw/live2d-widget-model-hibiki/assets/hibiki.model.json",
         },
-        display: { position: "left", width: 200, height: 500 },
+        display: { position: "left", width: 200, height: 465 },
         mobile: { show: true },
         log: false,
       });
