@@ -32,7 +32,7 @@
     </div>
     <div class="disc_right">
       
-      <img src="../../assets/blog_img.jpg" :style="{'filter': 'blur('+blur+'px)'}"/>
+      <img src="../../assets/blog_img.jpg" />
     </div>
   </div>
 </template>
@@ -41,18 +41,14 @@
 import icon from "../icon/icon.vue";
 export default {
   components: { icon },
-  props:{
-      blur:{
-          type:Number,
-          default:5
-      }
-  }
+ 
 };
 </script>
 
 <style lang="less" scoped>
 .indexDiscovery_box {
-  margin-top: 50px;
+  margin-top: 100px;
+  filter: blur(10px);
   width: 800px;
   height: 300px;
   overflow: hidden;

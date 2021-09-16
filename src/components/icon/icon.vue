@@ -15,7 +15,7 @@ export default {
 
 <style scoped>
 /* blog-icon */
-@import "//at.alicdn.com/t/font_2814313_2qopzc9nzlq.css"; 
+@import "//at.alicdn.com/t/font_2814313_4rwdbeexsly.css"; 
 /* share-icon */
 @import "//at.alicdn.com/t/font_2815865_dp1osrldfwh.css";
 .iconfont {

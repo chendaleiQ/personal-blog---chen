@@ -1,16 +1,19 @@
 <template>
   <div class="index_box">
+    <div :class="{ back_top: true, back_active: isShow }" @click="backTop">
+      <img src="../../assets/scroll.png" alt="" />
+    </div>
     <div
       class="header"
       @mouseenter="isShow = true"
-      @mouseleave="scrollTop==0?isShow = false:isShow = true"
+      @mouseleave="scrollTop == 0 ? (isShow = false) : (isShow = true)"
     >
-      <div :class="{ nav_left: true, left_onload: onLoad }" ref="nav1">
+      <div :class="{ nav_left: true, left_onload: onLoad, show: isShow }">
         <span>我的</span>
         个人博客
       </div>
       <nav-bar :show="isShow" />
-      <div :class="{ nav_right: true, right_onload: onLoad }" ref="nav2">
+      <div :class="{ nav_right: true, right_onload: onLoad, show: isShow }">
         <div class="select">
           <Icon type="icon-sousuo" />
         </div>
@@ -27,25 +30,42 @@
     </div>
     <index-container />
     <index-content />
+    <index-footer />
+    <div
+      class="theme"
+      @click="isActive ? (isActive = false) : (isActive = true)"
+    >
+      切换主题 | SCHEME TOOL
+      <icon type="icon-chilun" class="chilun" />
+      <div :class="{ alert: true, alert_active: isActive }">
+        <div class="triangle"></div>
+        Whether to <strong>login</strong> now?
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import NavBar from "@/components/navBar/navBar.vue";
-import IndexContainer from '../../components/indexContainer/indexContainer.vue';
-import IndexContent from '../../components/indexContent/indexContent.vue';
+import IndexContainer from "../../components/indexContainer/indexContainer.vue";
+import IndexContent from "../../components/indexContent/indexContent.vue";
+import IndexFooter from "../../components/indexFooter/indexFooter.vue";
+import Icon from "../../components/icon/icon.vue";
 export default {
   components: {
     NavBar,
     IndexContainer,
-    IndexContent
+    IndexContent,
+    IndexFooter,
+    Icon,
   },
   data() {
     return {
       onLoad: false,
       isShow: false,
-      scrollTop:null
+      scrollTop: null,
+      isActive: false,
     };
   },
   created() {
@@ -54,20 +74,27 @@ export default {
     }, 1);
   },
   methods: {
+    backTop() {
+      const that = this;
+      let timer = setInterval(() => {
+        let ispeed = Math.floor(-that.scrollTop / 5);
+        document.documentElement.scrollTop = document.body.scrollTop =
+          that.scrollTop + ispeed;
+        if (that.scrollTop === 0) {
+          clearInterval(timer);
+        }
+      }, 16);
+    },
     getScroll(e) {
-      this.scrollTop = e.target.scrollingElement.scrollTop
+      this.scrollTop = e.target.scrollingElement.scrollTop;
       this.isShow = this.scrollTop == 0 ? false : true;
-      if (this.isShow) {
-        this.$refs.nav1.style.color = "#000";
-        this.$refs.nav2.style.color = "#000";
-      } else {
-        this.$refs.nav1.style.color = "#666";
-        this.$refs.nav2.style.color = "#666";
-      }
     },
   },
   mounted() {
     window.addEventListener("scroll", this.getScroll, true);
+  },
+  destroyed() {
+    window.removeEventListener("scroll", this.getScroll, true);
   },
 };
 </script>
@@ -75,6 +102,29 @@ export default {
 <style lang="less" scoped>
 .index_box {
   width: 100%;
+  .back_top {
+    z-index: 99;
+    position: fixed;
+    right: 20px;
+    top: -1000px;
+    transition: all 0.5s ease-out;
+  }
+  .back_active {
+    top: -250px;
+    transform: translateY(0);
+    animation: backsport 3s infinite 0.5s;
+  }
+  @keyframes backsport {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(1%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
   .header {
     position: fixed;
     height: 75px;
@@ -88,7 +138,6 @@ export default {
       height: 100%;
       display: flex;
       align-items: center;
-      margin-left: 0;
       transition: all 0.5s ease-out;
       opacity: 0;
       z-index: 5;
@@ -96,7 +145,7 @@ export default {
       font-size: 28px;
     }
     .left_onload {
-      margin-left: 30px;
+      transform: translateX(30px);
       opacity: 1;
     }
     .nav_right {
@@ -149,7 +198,7 @@ export default {
             }
           }
           &:hover {
-            animation: personsport 2s linear;
+            animation: personsport 2s;
           }
         }
 
@@ -163,13 +212,13 @@ export default {
         top: 80px;
         opacity: 0;
         transition: all 0.25s;
-        right: 20px;
+        right: -10px;
         width: 110px;
         font-size: 14px;
         color: #000;
         font-weight: 500;
         border-radius: 5px;
-        box-shadow: 0 1px 40px -8px rgb(0, 0, 0, 50%);
+        box-shadow: 0 1px 40px -8px rgb(100, 100, 100, 50%);
         background: #fff;
         padding: 15px;
         box-sizing: border-box;
@@ -185,11 +234,62 @@ export default {
       }
     }
     .right_onload {
-      margin-right: 30px;
+      transform: translateX(-30px);
+      opacity: 1;
+    }
+    .show {
+      color: #666;
+    }
+  }
+  .theme {
+    cursor: pointer;
+    position: fixed;
+    right: 15px;
+    bottom: 15px;
+    user-select: none;
+    .chilun {
+      display: inline-block;
+      animation: chilunsport 2s infinite linear;
+      @keyframes chilunsport {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(180deg);
+        }
+      }
+    }
+
+    .alert {
+      position: absolute;
+      top: -50px;
+      transition: all 0.25s;
+      right: 0;
+      width: 200px;
+      font-size: 14px;
+      opacity: 0;
+      color: #000;
+      font-weight: 500;
+      border-radius: 5px;
+      box-shadow: 0 1px 40px -8px rgb(100, 100, 100, 50%);
+      background: #fff;
+      padding: 15px;
+      box-sizing: border-box;
+      .triangle {
+        transform: rotate(45deg);
+        width: 14px;
+        height: 14px;
+        position: absolute;
+        bottom: -7px;
+        right: 93px;
+        background: #fff;
+      }
+    }
+    .alert_active {
+      top: -80px;
       opacity: 1;
     }
   }
-  
 }
 .navBar_box {
 }

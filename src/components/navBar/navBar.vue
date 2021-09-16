@@ -68,9 +68,9 @@ export default {
   height: 75px;
   width: 100%;
   font-size: 16px;
-  font-weight: 600;
-  box-shadow: 0 1px 40px -8px rgb(0, 0, 0, 50%);
-  color: #000;
+  font-weight: 500;
+  box-shadow: 0 1px 40px -8px rgb(200, 200, 200, .1);
+  color: #666;
   opacity: 0;
   background: #fff;
   transition: all 0.25s;

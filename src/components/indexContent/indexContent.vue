@@ -41,7 +41,6 @@
         &nbsp;Discovery
       </div>
       <index-discovery
-        :blur="0"
         :ref="'disc' + index"
         v-for="(item, index) in data"
         :key="index"
@@ -66,6 +65,15 @@ export default {
     getScroll(e) {
       this.scrollTop = e.target.scrollingElement.scrollTop;
       this.clientHeight = e.target.scrollingElement.clientHeight;
+      for (let i = 0; i < this.data.length; i++) {
+        if (
+          this.$refs["disc" + i][0].$el.offsetTop <
+          this.scrollTop + this.clientHeight + 100
+        ) {
+          this.$refs["disc" + i][0].$el.style.marginTop = 50 + "px";
+          this.$refs["disc" + i][0].$el.style.filter = 'blur(0)';
+        }
+      }
     },
   },
   mounted() {
@@ -83,7 +91,6 @@ export default {
   .cnt_dash,
   .cnt_discovery {
     margin-top: 50px;
-
     width: 800px;
     .dash_title {
       display: flex;

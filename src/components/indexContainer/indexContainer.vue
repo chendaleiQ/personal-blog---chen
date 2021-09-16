@@ -24,7 +24,7 @@
       <div class="bac_img1"></div>
       <div class="bac_img2"></div>
     </div>
-    <div class="con_down">
+    <div class="con_down" @click="toScroll">
       <Icon type="icon-arrowdown" />
     </div>
   </div>
@@ -34,26 +34,41 @@
 export default {
   data() {
     return {
-      curHeight:null
+      curHeight: null,
     };
   },
-  created() {}, 
+  created() {},
   mounted() {
-    this.$refs.figure.clientHeight;
-    console.log(document.documentElement.clientHeight);
+    this.$refs.figure.style.height =
+      document.documentElement.clientHeight - 50 + "px";
+    this.$refs.figure.style.height =
+      document.documentElement.clientHeight + "px";
   },
   methods: {
-    
+    toScroll() {
+      const that = this;
+      console.log(document.documentElement.scrollTop);
+      let timer = setInterval(() => {
+        let ispeed = Math.floor(document.documentElement.clientHeight / 20);
+        document.documentElement.scrollTop = document.body.scrollTop =
+          document.documentElement.scrollTop + ispeed;
+        if (
+          document.documentElement.scrollTop >=
+          document.documentElement.clientHeight-75
+        ) {
+          clearInterval(timer);
+        }
+      }, 8);
+    },
   },
 };
 </script>
 
 <style lang="less" scoped>
 .index_container {
-  z-index: -1;
+  z-index: 4;
   position: relative;
   width: 100%;
-  // max-height: 800px;
   &::before {
     content: "";
     position: absolute;
@@ -69,8 +84,7 @@ export default {
 
   .figure {
     width: 100%;
-    height: 800px;
-    // height: 700px;
+    transition: all 1s;
     background: url(https://api.2heng.xin/cover);
     background-size: cover;
   }
@@ -129,11 +143,12 @@ export default {
       z-index: 4;
       height: 45px;
       position: absolute;
-      width: 500%;
+      width: 300%;
       bottom: 0;
       left: 0%;
-      animation: bacsport 600s;
+      animation: bacsport 500s infinite;
       background: url(https://cdn.jsdelivr.net/gh/moezx/cdn@3.5.1/img/Sakura/images/wave1.png);
+      background-repeat: repeat-x;
     }
     .bac_img2 {
       z-index: 4;
@@ -141,42 +156,45 @@ export default {
       position: absolute;
       width: 500%;
       bottom: 0;
-      left: 0%;
-      animation: bacsport 800s;
+      transform: translateX(0);
+      animation: bacsport 500s infinite;
       background: url(https://cdn.jsdelivr.net/gh/moezx/cdn@3.5.1/img/Sakura/images/wave2.png);
+      background-repeat: repeat-x;
     }
     @keyframes bacsport {
       0% {
-        left: 0%;
+        transform: translateX(0);
       }
       50% {
-        left: -400%;
+        transform: translateX(-50%);
       }
       100% {
-        left: 0%;
+        transform: translateX(0);
       }
     }
   }
   .con_down {
+    cursor: pointer;
     position: absolute;
     top: 85%;
     left: 50%;
     transform: translateX(-50%);
+    transform: translateY(0);
     color: #fff;
     font-weight: bold;
     font-size: 28px;
-    z-index: 4;
+    z-index: 999;
     animation: downsport 2s infinite;
   }
   @keyframes downsport {
     0% {
-      top: 85%;
+      transform: translateY(0);
     }
     50% {
-      top: 86%;
+      transform: translateY(10%);
     }
     100% {
-      top: 85%;
+      transform: translateY(0);
     }
   }
 }
