@@ -14,7 +14,9 @@ export default {
 </script>
 
 <style scoped>
-@import "//at.alicdn.com/t/font_2814313_xizy1ucfpak.css";
+/* blog-icon */
+@import "//at.alicdn.com/t/font_2814313_2qopzc9nzlq.css"; 
+/* share-icon */
 @import "//at.alicdn.com/t/font_2815865_dp1osrldfwh.css";
 .iconfont {
   color: inherit;
