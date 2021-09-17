@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import index from './views/index/index'
+import message from './views/message/message'
 Vue.use(Router)
 
 export default new Router({
@@ -9,6 +10,11 @@ export default new Router({
       path: '/',
       name: 'index',
       component: index
+    },
+    {
+      path: '/message',
+      name: '/message',
+      component: message
     },
     // {
     //   path: '/about',

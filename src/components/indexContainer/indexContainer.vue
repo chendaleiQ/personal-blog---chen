@@ -1,6 +1,9 @@
 <template>
-  <div class="index_container">
-    <figure class="figure" ref="figure"></figure>
+  <div class="index_container" :class="{container_onload:onload}">
+    <figure
+      class="figure"
+      ref="figure"
+    ></figure>
     <div class="con_title">
       <div class="title_text">HI,MASHIRO!</div>
       <div class="title_bottom">
@@ -35,14 +38,16 @@ export default {
   data() {
     return {
       curHeight: null,
+      onload: false,
     };
   },
   created() {},
   mounted() {
-    this.$refs.figure.style.height =
-      document.documentElement.clientHeight - 50 + "px";
+    // this.$refs.figure.style.height =
+    //   document.documentElement.clientHeight - 50 + "px";
     this.$refs.figure.style.height =
       document.documentElement.clientHeight + "px";
+    this.onload = true;
   },
   methods: {
     toScroll() {
@@ -54,7 +59,7 @@ export default {
           document.documentElement.scrollTop + ispeed;
         if (
           document.documentElement.scrollTop >=
-          document.documentElement.clientHeight-75
+          document.documentElement.clientHeight - 75
         ) {
           clearInterval(timer);
         }
@@ -69,6 +74,8 @@ export default {
   z-index: 4;
   position: relative;
   width: 100%;
+  transition: all 1s;
+  transform: translateY(-50px);
   &::before {
     content: "";
     position: absolute;
@@ -197,5 +204,8 @@ export default {
       transform: translateY(0);
     }
   }
+}
+.container_onload{
+  transform: translateY(0);
 }
 </style>
