@@ -37,7 +37,8 @@ export default {
 
 <style lang="less" scoped>
 .container_box {
-  margin-top: 45px;
+  margin-top: 75px;
+  transform: translateY(-30px);
   width: 100%;
   overflow: hidden;
   display: flex;
@@ -45,6 +46,7 @@ export default {
   align-items: center;
   position: relative;
   transition: all 1s;
+  filter: blur(10px);
   img {
     width: 100%;
   }
@@ -66,6 +68,7 @@ export default {
   }
 }
 .container_onload {
-  margin-top: 75px;
+ transform: translateY(0);
+ filter: blur(0);
 }
 </style>
