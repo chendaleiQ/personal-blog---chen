@@ -93,8 +93,6 @@ export default {
           color: #fe9600;
         }
       }
-      .all13 {
-      }
     }
     .disc_text {
       font-size: 15px;

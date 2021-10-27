@@ -79,6 +79,9 @@ export default {
   mounted() {
     window.addEventListener("scroll", this.getScroll, true);
   },
+  destroyed(){
+    window.removeEventListener("scroll")
+  }
 };
 </script>
 

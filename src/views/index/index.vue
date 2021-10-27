@@ -96,6 +96,4 @@ export default {
     }
   }
 }
-.navBar_box {
-}
 </style>
