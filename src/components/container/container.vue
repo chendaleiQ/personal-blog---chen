@@ -37,7 +37,6 @@ export default {
 
 <style lang="less" scoped>
 .container_box {
-  margin-top: 75px;
   transform: translateY(-30px);
   width: 100%;
   overflow: hidden;

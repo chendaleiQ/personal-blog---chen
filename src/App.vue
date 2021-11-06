@@ -37,4 +37,7 @@ body {
   height: 100%;
   // cursor: url(https://cdn.jsdelivr.net/gh/moezx/cdn@3.1.9/img/Sakura/cursor/normal.cur),auto;
 }
+.el-main,header,footer{
+  padding: 0 !important;
+}
 </style>
