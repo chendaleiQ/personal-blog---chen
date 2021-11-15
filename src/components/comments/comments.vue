@@ -1,7 +1,7 @@
 <template>
     <div class="comments_box">
         <el-row type="flex" justify="center">
-            <el-col :span="10">
+            <el-col >
                 <div class="comments">
                     <div class="userinfo">
                         <div class="avatar">
