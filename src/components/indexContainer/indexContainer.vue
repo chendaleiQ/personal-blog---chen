@@ -92,7 +92,7 @@ export default {
   .figure {
     width: 100%;
     transition: all 1s;
-    background: url(https://api.2heng.xin/cover);
+    background: url(https://t7.baidu.com/it/u=2621658848,3952322712&fm=193&f=GIF);
     background-size: cover;
   }
   .con_title {
